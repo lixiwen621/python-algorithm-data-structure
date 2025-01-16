@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/python-arithmetic-data-structure.iml" filepath="$PROJECT_DIR$/.idea/python-arithmetic-data-structure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/python-algorithm-data-structure.iml" filepath="$PROJECT_DIR$/.idea/python-algorithm-data-structure.iml" />
     </modules>
   </component>
 </project>

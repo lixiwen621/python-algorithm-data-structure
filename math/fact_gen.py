@@ -1,4 +1,5 @@
-# 阶乘
+# Get the factorial of a number
+# 得到一个数的阶乘
 def prod(a,b):
     return a * b
 

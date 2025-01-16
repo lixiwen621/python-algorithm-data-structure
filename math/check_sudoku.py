@@ -1,3 +1,8 @@
+# Check if the n*n list satisfies Sudoku
+# The rules of Sudoku:
+#   1.The numbers in each row cannot be repeated
+#   2.The numbers in each column cannot be repeated
+# 检查 n*n list 是不是满足数独
 def check_sudoku(square):
     square_column = len(square)
     square_row = len(square[0])
@@ -48,7 +53,8 @@ invalid_sudoku = [
     [2, 3, 1]
 ]
 
-print(check_sudoku(sudoku))
-print(check_sudoku(invalid_sudoku))
+if __name__ == '__main__':
+    print(check_sudoku(sudoku))
+    print(check_sudoku(invalid_sudoku))
 
 
