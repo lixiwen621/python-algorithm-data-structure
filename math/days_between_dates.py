@@ -104,6 +104,5 @@ def test():
 
 
 if __name__ == '__main__':
-    day = days_between_dates(2004,11,28,2009,2,28)
-    test()
+    day = days_between_dates(2024,10,15,2024,12,31)
     print(day)
