@@ -13,11 +13,29 @@ class LinkedList:
         # 链表的头指针, 初始为None
         self.head = None
 
-        if input_list:
-            if not isinstance(input_list, list):
-                raise TypeError("The data type must be a list")
-            for element in input_list:
-                self.append(element)
+        if input_list and isinstance(input_list, (list, tuple, set, dict)):
+            for item in input_list:
+                self.append(item)
+
+
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.data
+            node = node.next
+
+
+    def __repr__(self):
+        return str([v for v in self])
+
+
+    def __reversed__(self):
+        # Step 1: Collect all elements in a list
+        elements = list(self)
+
+        # Step 2: Yield elements in reverse order
+        for item in reversed(elements):
+            yield item
 
 
     # Insert a new node at the end of the linked list
@@ -65,7 +83,8 @@ class LinkedList:
         # 如果删除的是头节点
         if current and current.data == key:
             self.head = current.next
-            current = None
+            current.data = None
+            current.next = None
             return
 
         # Find the node to delete and keep a reference to the previous node
@@ -83,6 +102,7 @@ class LinkedList:
         prev.next = current.next
 
 
+
     # Print all elements of the linked list
     # 打印链表的所有元素
     def print_list(self):
@@ -95,17 +115,24 @@ class LinkedList:
         print("None")
 
 
+def has_cycle(linked_list):
+    fast = linked_list.head
+    slow = linked_list.head
+
+    while fast and fast.next:
+        # slow 指针每次走一步
+        slow = slow.next
+        # fast 指针每次走二步
+        fast = fast.next.next
+        # 如果相遇 说明有环
+        if slow == fast:
+            return True
+    return False
+
 
 if __name__ == "__main__":
-    ll = LinkedList([1,2])
-    ll.append("lixiwen")
-    ll.append("lixin")
-    ll.append("liyirui")
+    linked_list = LinkedList([1,2])
+    linked_list.append("lixiwen")
+    linked_list.append("lixin")
+    linked_list.append("liyirui")
 
-    ll.print_list()
-
-    ll.prepend("libaba")
-    ll.print_list()
-
-    ll.delete("lixin")
-    ll.print_list()

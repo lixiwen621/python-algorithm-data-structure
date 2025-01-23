@@ -8,7 +8,7 @@ class Node:
 
 
 class DoublyLinkedList:
-    def __init__(self):
+    def __init__(self, list=None):
         # linked_list head
         # 链表头指针, 初始化为None
         self.__head = None
@@ -17,6 +17,27 @@ class DoublyLinkedList:
         self.__tail = None
         # 定义链表的长度
         self.size = int(0)
+        if list and isinstance(list,(list, tuple, set, dict)):
+            for item in list:
+                self.add_last(item)
+
+
+    def __iter__(self):
+        node = self.__head
+        while node:
+            yield node.data
+            node = node.next
+
+
+    def __reversed__(self):
+        node = self.__tail  # 从尾节点开始
+        while node:
+            yield node.data
+            node = node.previous  # 向前移动到上一个节点
+
+
+    def __repr__(self):
+        return str([v for v in self])
 
 
     # Returns the (non-null) Node at the specified element index
@@ -61,37 +82,37 @@ class DoublyLinkedList:
     # 在链表末尾插入新节点
     def add_last(self, data):
         # 创建一个新节点
-        new_data = Node(data)
+        new_node = Node(data)
 
         # 如果链表为空, 新节点成为头节点和尾节点
         if not self.__head:
-            self.__head = self.__tail = new_data
+            self.__head = self.__tail = new_node
         else:
             # 将尾节点的 next 指向新节点
-            self.__tail.next = new_data
+            self.__tail.next = new_node
             # 新节点的 prev 指向原尾节点
-            new_data.previous = self.__tail
+            new_node.previous = self.__tail
             # 更新现在的尾节点为新节点
-            self.__tail = new_data
+            self.__tail = new_node
         self.size += 1
 
     # Add an element to the beginning of the linked list
     # 在链表开头添加一个元素
     def add_first(self, data):
         # 创建一个新节点
-        new_data = Node(data)
+        new_node = Node(data)
 
         # If the linked list is empty, the new nodes become the head node and tail node
         # 如果链表为空, 新节点成为头节点和尾节点
         if not self.__head:
-            self.__head = self.__tail = new_data
+            self.__head = self.__tail = new_node
         else:
             # 新节点的 next 指向头节点
-            new_data.next = self.__head
+            new_node.next = self.__head
             # 原头节点 prev 指向新节点
-            self.__head.previous = new_data
+            self.__head.previous = new_node
             # 更新头节点为 新节点
-            self.__head = new_data
+            self.__head = new_node
         self.size += 1
 
 
@@ -103,15 +124,15 @@ class DoublyLinkedList:
         else:
             node = self.node(index)
             prev = node.previous
-            new_data = Node(data)
-            node.previous = new_data
-            new_data.next = node
+            new_node = Node(data)
+            node.previous = new_node
+            new_node.next = node
             if prev is None:
-                self.__head = new_data
-                new_data.previous = self.__head
+                self.__head = new_node
+                new_node.previous = self.__head
             else:
-                prev.next = new_data
-                new_data.previous = prev
+                prev.next = new_node
+                new_node.previous = prev
 
 
     # Delete from the head node
@@ -208,6 +229,8 @@ class DoublyLinkedList:
             current = current.next
         return None
 
+
+
     # Print all elements in the linked list, from beginning to end
     # 打印链表中所有的元素, 从头到尾
     def print_list(self):
@@ -228,6 +251,27 @@ class DoublyLinkedList:
         print("None")
 
 
+# reverse linked_list
+# 翻转链表
+def reverse(linked_list):
+    new_list = DoublyLinkedList()
+
+    for value in reversed(linked_list):
+        new_list.add_last(value)
+
+    return new_list
+
+
+def has_cycle(linked_list):
+    fast = linked_list._DoublyLinkedList__head
+    slow = linked_list._DoublyLinkedList__head
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
 
 if __name__ == "__main__":
     linked_list = DoublyLinkedList()
@@ -237,19 +281,11 @@ if __name__ == "__main__":
     linked_list.add_last("liyirui")
     linked_list.print_list()
 
-    node = linked_list.search("lixiwen")
-    print(node.data)
+    print(linked_list)
+    for val in linked_list:
+        print(val)
 
-    data_list = linked_list.to_list()
-    print(data_list)
-    print(linked_list.size)
-    print(isinstance(linked_list.size,int))
+    new_linked_list = reverse(linked_list)
+    print(new_linked_list)
 
-    assert linked_list.size == 4, f"list contents: {linked_list.to_list()}"
-
-    print(linked_list.pop())
-    linked_list.print_list()
-    node = linked_list.node(2)
-    print(node.data)
-    linked_list.insert(2,"dengdafen")
-    linked_list.print_list()
+    print(has_cycle(linked_list))
