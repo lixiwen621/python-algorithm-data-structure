@@ -37,7 +37,7 @@ class DoublyLinkedList:
 
 
     def __repr__(self):
-        return str([v for v in self])
+        return str([v for v in self.__iter__()])
 
 
     # Returns the (non-null) Node at the specified element index
